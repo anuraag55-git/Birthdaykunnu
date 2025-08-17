@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Unforgettable Surprise for Kunalika!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&family=Dancing+Script:wght@500&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffdee9, #b5eaff, #ffdde1, #d4f1f4);
+            background-size: 400% 400%;
+            animation: dreamyBackground 20s ease infinite;
+        }
+
+        @keyframes dreamyBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .stage {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            position: absolute;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .stage.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            color: #333;
+        }
+
+        /* --- Universal Button Style --- */
+        .button {
+            background: linear-gradient(45deg, #ff69b4, #ff85c8);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Individual Stage Styles --- */
+
+        .signature { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff1493; margin-top: 20px; text-align: right; width: 100%; }
+        
+        /* Song Stage */
+        #stage-song iframe { margin-top: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); border-radius:12px; }
+
+        .quality { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff1493; opacity: 0; animation: fadeIn_up 1s forwards, glow 2s infinite alternate; }
+        .quality:nth-child(2) { animation-delay: 0.5s, 0.5s; } .quality:nth-child(3) { animation-delay: 1s, 1s; }
+        @keyframes glow { from { text-shadow: 0 0 5px #ffb6c1; } to { text-shadow: 0 0 20px #ff69b4; } }
+
+        /* Awards Stage */
+        .award-list { list-style: none; padding: 0; margin-top: 20px; text-align: left; }
+        .award-list li { font-size: 1.2rem; margin-bottom: 15px; opacity: 0; animation: fadeIn_up 0.8s forwards; }
+        .award-list li:nth-child(2) { animation-delay: 0.4s; } .award-list li:nth-child(3) { animation-delay: 0.8s; }
+        .award-list span { font-family: 'Dancing Script', cursive; color: #ff69b4; display: block; font-size: 1.5rem; }
+
+        .caption { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #555; margin-top: 15px; max-width: 220px; opacity: 0; transform: translateY(10px); animation: fadeIn_up 0.6s ease-out 0.6s forwards; }
+        .photo-item:nth-child(2) { animation-delay: 0.4s; } .photo-item:nth-child(2) .caption { animation-delay: 1.0s; }
+        .photo-item:nth-child(3) { animation-delay: 0.8s; } .photo-item:nth-child(3) .caption { animation-delay: 1.4s; }
+
+        /* Emoji Stage */
+        .emoji-container { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .emoji { font-size: 4rem; opacity: 0; animation: popIn 0.5s forwards, wobble 2.5s infinite; }
+        .emoji:nth-child(2) { animation-delay: 0.3s, 0.3s; } .emoji:nth-child(3) { animation-delay: 0.6s, 0.6s; }
+        .emoji:nth-child(4) { animation-delay: 0.9s, 0.9s; } .emoji:nth-child(5) { animation-delay: 1.2s, 1.2s; }
+
+        .joke { background: #fff; padding: 15px 25px; border-radius: 50px; color: #ff69b4; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); opacity: 0; animation: popIn 0.5s forwards, wobble 2s infinite; }
+        .joke:nth-child(2) { animation-delay: 0.3s, 0.3s; } .joke:nth-child(3) { animation-delay: 0.6s, 0.6s; }
+        @keyframes wobble { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+
+        /* Coupon Stage */
+        .coupon-book { display: flex; gap: 20px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .coupon { background: #fff; border: 2px dashed #ffb6c1; padding: 20px; border-radius: 10px; width: 200px; opacity: 0; animation: popIn 0.6s forwards; }
+        .coupon span { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #ff69b4; }
+        .coupon:nth-child(2) { animation-delay: 0.3s; }
+
+        .gift-box { position: relative; cursor: pointer; }
+        .gift-box .lid { width: 150px; height: 40px; background: #ff69b4; border-radius: 5px; transition: transform 0.5s ease-in-out; }
+        .gift-box .box { width: 130px; height: 100px; background: #ff85c8; position: relative; left: 10px; }
+        .gift-box.open .lid { transform: translateY(-80px) rotate(20deg); }
+
+        /* Cake Stage */
+        #stage-cake h2.visible { transform: scale(1); opacity: 1; }
+
+        /* --- Shared Animations --- */
+        @keyframes popIn { to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn_up { to { opacity: 1; transform: translateY(0); } }
+        .sparkle { position: absolute; color: #ffd700; font-size: 1.5rem; animation: sparkle-anim 1s ease-out forwards; pointer-events: none; }
+        @keyframes sparkle-anim { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+        .balloon { position: absolute; bottom: -200px; width: 70px; height: 90px; background-color: red; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: floatUp 10s ease-in-out infinite; }
+        .balloon::after { content: ""; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 2px; height: 20px; background-color: #555; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-80vh) rotate(20deg); } 100% { transform: translateY(-120vh) rotate(-20deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="stage-start" class="stage active"><h1>A Little Surprise for Kunalika...</h1><button id="startButton" class="button">Click to Begin the Journey</button></div>
+
+    <div id="stage-wish" class="stage"><div class="card"><h2>My Dearest Kunalika,</h2><p id="wishText"></p><div id="signature" class="signature" style="opacity: 0;"></div></div><button id="wishNextButton" class="button" style="display: none;">Let's Add Some Music</button></div>
+    
+    <!-- DEDICATED SONG STAGE (The fix) -->
+    <div id="stage-song" class="stage">
+        <div class="card">
+            <h2>The Soundtrack to Our Story</h2>
+            <p>Press play to add a little magic to this journey...</p>
+            <iframe id="spotifyPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/track/24wSWZLoKMRZvJVbxHkKMg?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <button id="songNextButton" class="button">Continue the Surprise</button>
+    </div>
+
+    <div id="stage-qualities" class="stage"><div class="card"><h2>Celebrating the Constellation of You...</h2><div class="qualities-grid"><span class="quality">Your Laughter</span><span class="quality">Your Strength</span><span class="quality">Your Kindness</span></div></div><button id="qualitiesNextButton" class="button">Next</button></div>
+
+    <div id="stage-awards" class="stage"><div class="card"><h2>And the Award Goes To...</h2><ul class="award-list"><li><span>The Golden Giggle Award</span> For having a laugh so contagious, it should be bottled and sold.</li><li><span>The Master Chef Award</span> For... well, for trying your best in the kitchen! 😉</li><li><span>The Best Friend in the Universe Award</span> For a million little reasons. No contest.</li></ul></div><button id="awardsNextButton" class="button">Next</button></div>
+
+    <div id="stage-photos" class="stage"><h2>A Gallery of Golden Moments</h2><div class="photo-gallery"><div class="photo-item"><img src="images/photo1.jpg" alt="Memory 1"><p class="caption">...with a smile that could outshine the sun and a heart made of pure gold.</p></div><div class="photo-item"><img src="images/photo2.jpg" alt="Memory 2"><p class="caption">...whose laughter is my favorite song and whose strength never ceases to inspire me.</p></div><div class="photo-item"><img src="images/photo3.jpg" alt="Memory 3"><p class="caption">...my confidant, my partner-in-crime, my forever friend. My world is better because of you.</p></div></div><button id="photosNextButton" class="button">Next</button></div>
+    
+    <div id="stage-emojis" class="stage"><div class="card"><h2>Our Friendship in a Nutshell...</h2><div class="emoji-container"><span class="emoji">💬</span><span class="emoji">😂</span><span class="emoji">🍕</span><span class="emoji">🎬</span><span class="emoji">💖</span></div></div><button id="emojisNextButton" class="button">Next</button></div>
+
+    <div id="stage-jokes" class="stage"><div class="card"><h2>Some of Your Fav Words...</h2><p>(...for scolding me, of course! 😂)</p><div class="jokes-list"><div class="joke">Pandi</div><div class="joke">Dog</div><div class="joke">Ep</div></div></div><button id="jokesNextButton" class="button">Next</button></div>
+
+    <div id="stage-date" class="stage"><div class="card"><h2>A Very Serious Question...</h2><p>As your best friend, I am now legally required to take you on a birthday date. Your acceptance is non-negotiable. Please confirm below:</p><div class="date-options"><button id="dateButtonYes1" class="button">Yes, obviously.</button><button id="dateButtonYes2" class="button">Yes, but I'll pretend to think about it first.</button></div></div></div>
+
+    <div id="stage-coupons" class="stage"><div class="card"><h2>A Little Coupon Book, Just for You</h2><div class="coupon-book"><div class="coupon"><span>One Free Coffee</span><p>Because you deserve it. My treat!</p></div><div class="coupon"><span>One Emergency Pep Talk</span><p>Redeemable 24/7. No questions asked.</p></div></div></div><button id="couponsNextButton" class="button">Next</button></div>
+
+    <div id="stage-gift" class="stage"><div class="card"><h2>A Special Gift For You...</h2><div id="giftBox" class="gift-box"><div class="lid"></div><div class="box"></div></div><p style="margin-top:20px;">Click the gift to unwrap it!</p></div></div>
+
+    <div id="stage-future-wish" class="stage"><div class="card"><h2>A Wish for Your Journey Ahead</h2><p>"May your 20th year be a story of beautiful moments, brave new adventures, and dreams coming true. May you always know how deeply you are loved."</p></div><button id="futureWishNextButton" class="button">And now, for the celebration...</button></div>
+
+    <div id="stage-cake" class="stage"><h2 id="finalMessage">Happy 20th Birthday, Kunnu! 💕</h2><div id="cake-container"><img id="cakeImage" src="images/cake-whole.png" alt="Birthday Cake"></div><button id="cutCakeButton" class="button">Make a Wish & Cut the Cake!</button></div>
+
+    <script>
+        // --- Element Selection ---
+        const buttons = {
+            start: document.getElementById('startButton'),
+            wishNext: document.getElementById('wishNextButton'),
+            songNext: document.getElementById('songNextButton'),
+            qualitiesNext: document.getElementById('qualitiesNextButton'),
+            awardsNext: document.getElementById('awardsNextButton'),
+            photosNext: document.getElementById('photosNextButton'),
+            emojisNext: document.getElementById('emojisNextButton'),
+            jokesNext: document.getElementById('jokesNextButton'),
+            dateButtonYes1: document.getElementById('dateButtonYes1'),
+            dateButtonYes2: document.getElementById('dateButtonYes2'),
+            couponsNext: document.getElementById('couponsNextButton'),
+            giftBox: document.getElementById('giftBox'),
+            futureWishNext: document.getElementById('futureWishNextButton'),
+            cutCake: document.getElementById('cutCakeButton')
+        };
+        const stage = {
+            start: document.getElementById('stage-start'), wish: document.getElementById('stage-wish'), song: document.getElementById('stage-song'), qualities: document.getElementById('stage-qualities'), awards: document.getElementById('stage-awards'), photos: document.getElementById('stage-photos'), emojis: document.getElementById('stage-emojis'), jokes: document.getElementById('stage-jokes'), date: document.getElementById('stage-date'), coupons: document.getElementById('stage-coupons'), gift: document.getElementById('stage-gift'), futureWish: document.getElementById('stage-future-wish'), cake: document.getElementById('stage-cake')
+        };
+        const cakeImage = document.getElementById('cakeImage');
+        const finalMessage = document.getElementById('finalMessage');
+        const wishTextElement = document.getElementById('wishText');
+        const signatureElement = document.getElementById('signature');
+
+        // --- Functions ---
+        function switchStage(hide, show) {
+            hide.classList.remove('active');
+            setTimeout(() => { show.classList.add('active'); }, 500);
+        }
+
+        function typeWriter(element, text, speed, onComplete) {
+            let i = 0;
+            element.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i); i++;
+                    setTimeout(type, speed);
+                } else if (onComplete) { onComplete(); }
+            }
+            type();
+        }
+
+        // --- Event Listeners for the Journey ---
+        buttons.start.addEventListener('click', () => {
+            switchStage(stage.start, stage.wish);
+            typeWriter(wishTextElement, "They say some people make the world more special just by being in it, and you are one of those people. To my friend with the kindest heart and the most beautiful soul, happy birthday. May your day be filled with as much joy, laughter, and love as you bring to my life every single day. Thank you for being you.", 50, () => {
+                signatureElement.style.opacity = '1';
+                typeWriter(signatureElement, "With all my love, your best friend", 100, () => {
+                    buttons.wishNext.style.display = 'inline-block';
+                });
+            });
+        });
+
+        buttons.wishNext.addEventListener('click', () => switchStage(stage.wish, stage.song));
+        buttons.songNext.addEventListener('click', () => switchStage(stage.song, stage.qualities));
+        buttons.qualitiesNext.addEventListener('click', () => switchStage(stage.qualities, stage.awards));
+        buttons.awardsNext.addEventListener('click', () => switchStage(stage.awards, stage.photos));
+        buttons.photosNext.addEventListener('click', () => switchStage(stage.photos, stage.emojis));
+        buttons.emojisNext.addEventListener('click', () => switchStage(stage.emojis, stage.jokes));
+        buttons.jokesNext.addEventListener('click', () => switchStage(stage.jokes, stage.date));
+        buttons.dateButtonYes1.addEventListener('click', () => switchStage(stage.date, stage.coupons));
+        buttons.dateButtonYes2.addEventListener('click', () => switchStage(stage.date, stage.coupons));
+        buttons.couponsNext.addEventListener('click', () => switchStage(stage.coupons, stage.gift));
+        
+        buttons.giftBox.addEventListener('click', () => {
+            buttons.giftBox.classList.add('open');
+            setTimeout(() => {
+                switchStage(stage.gift, stage.futureWish);
+            }, 800);
+        });
+
+        buttons.futureWishNext.addEventListener('click', () => switchStage(stage.futureWish, stage.cake));
+        
+        buttons.cutCake.addEventListener('click', () => {
+            cakeImage.src = 'images/cake-slice.png';
+            cakeImage.style.transform = 'scale(1.1)';
+            buttons.cutCake.style.display = 'none';
+            finalMessage.classList.add('visible');
+            launchCelebration();
+        });
+
+        function launchCelebration() {
+            const sparkleInterval = setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.innerHTML = '✨';
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.fontSize = `${Math.random() * 1.5 + 0.5}rem`;
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            }, 150);
+
+            const colors = ['#ff69b4', '#1e90ff', '#ffd700', '#32cd32', '#ff4500'];
+            for (let i = 0; i < 10; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.backgroundColor = colors[i % colors.length];
+                balloon.style.left = `${Math.random() * 90}%`;
+                balloon.style.animationDelay = `${Math.random() * 5}s`;
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 12000);
+            }
+            
+            setTimeout(() => clearInterval(sparkleInterval), 8000);
+        }
+    </script>
+</body>
+</html>
